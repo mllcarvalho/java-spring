@@ -2,17 +2,12 @@ package com.algaworks.algatransito.api.controller;
 
 import com.algaworks.algatransito.domain.model.Proprietario;
 import com.algaworks.algatransito.domain.repository.ProprietarioRepository;
-import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/proprietarios")
