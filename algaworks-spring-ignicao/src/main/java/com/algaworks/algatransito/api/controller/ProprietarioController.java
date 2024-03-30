@@ -5,11 +5,9 @@ import com.algaworks.algatransito.domain.repository.ProprietarioRepository;
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,5 +33,38 @@ public class ProprietarioController {
         return proprietarioRepository.findById(proprietarioId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Proprietario adicionar(@RequestBody Proprietario proprietario) {
+
+        return proprietarioRepository.save(proprietario);
+    }
+
+    @PutMapping("/{proprietarioId}")
+    public ResponseEntity<Proprietario> atualizar(@PathVariable Long proprietarioId,
+                                                  @RequestBody Proprietario proprietario) {
+
+        if (!proprietarioRepository.existsById(proprietarioId)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        proprietario.setId(proprietarioId);
+        proprietario = proprietarioRepository.save(proprietario);
+
+        return ResponseEntity.ok(proprietario);
+    }
+
+    @DeleteMapping("/{proprietarioId}")
+    public ResponseEntity<Void> remover(@PathVariable Long proprietarioId) {
+
+        if (!proprietarioRepository.existsById(proprietarioId)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        proprietarioRepository.deleteById(proprietarioId);
+
+        return ResponseEntity.noContent().build();
     }
 }
