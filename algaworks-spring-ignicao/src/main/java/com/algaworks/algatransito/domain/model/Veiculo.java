@@ -1,5 +1,6 @@
 package com.algaworks.algatransito.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -38,11 +39,14 @@ public class Veiculo {
     public String modelo;
 
     @Enumerated(EnumType.STRING)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     public StatusVeiculo status;
 
     @CreatedDate
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     public LocalDateTime dataCadastro;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     public LocalDateTime dataApreensao;
 
 }
