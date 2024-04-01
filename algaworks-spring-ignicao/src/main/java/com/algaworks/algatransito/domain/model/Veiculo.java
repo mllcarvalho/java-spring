@@ -1,9 +1,6 @@
 package com.algaworks.algatransito.domain.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
@@ -24,6 +21,10 @@ public class Veiculo {
     @Id
     public Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "proprietario_id")
+    public Proprietario proprietario;
+
     @NotBlank
     @Size(max = 7)
     public String placa;
@@ -36,9 +37,8 @@ public class Veiculo {
     @Size(max = 20)
     public String modelo;
 
-    @NotBlank
-    @Size(max = 20)
-    public String status;
+    @Enumerated(EnumType.STRING)
+    public StatusVeiculo status;
 
     @CreatedDate
     public LocalDateTime dataCadastro;
