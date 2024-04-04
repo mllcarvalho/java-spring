@@ -12,7 +12,7 @@ public class VeiculoModel {
 
     private Long id;
     private String nomeProprietario;
-    private String placa;
+    private String numeroPlaca;
     private String modelo;
     private String marca;
     private OffsetDateTime dataCadastro;

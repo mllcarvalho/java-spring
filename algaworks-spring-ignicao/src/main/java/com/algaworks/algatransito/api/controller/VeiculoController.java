@@ -6,6 +6,7 @@ import com.algaworks.algatransito.domain.repository.VeiculoRepository;
 import com.algaworks.algatransito.domain.service.RegistroVeiculoService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ public class VeiculoController {
 
     private final RegistroVeiculoService registroVeiculoService;
     private final VeiculoRepository veiculoRepository;
+    private final ModelMapper modelMapper;
 
     @GetMapping
     public List<Veiculo> listar() {
@@ -30,18 +32,7 @@ public class VeiculoController {
     public ResponseEntity<VeiculoModel> Buscar(@PathVariable Long veiculoId) {
 
         return veiculoRepository.findById(veiculoId)
-                .map(veiculo -> {
-                    var veiculoModel = new VeiculoModel();
-                    veiculoModel.setId(veiculo.getId());
-                    veiculoModel.setPlaca(veiculo.getPlaca());
-                    veiculoModel.setMarca(veiculo.getMarca());
-                    veiculoModel.setModelo(veiculo.getModelo());
-                    veiculoModel.setDataCadastro(veiculo.getDataCadastro());
-                    veiculoModel.setDataApreensao(veiculo.getDataApreensao());
-                    veiculoModel.setStatus(veiculo.getStatus());
-                    veiculoModel.setNomeProprietario(veiculo.getProprietario().getNome());
-                    return veiculoModel;
-                })
+                .map(veiculo -> modelMapper.map(veiculo, VeiculoModel.class))
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
