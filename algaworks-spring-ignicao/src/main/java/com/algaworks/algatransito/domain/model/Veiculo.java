@@ -16,6 +16,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Getter
 @Setter
@@ -54,9 +55,9 @@ public class Veiculo {
 
     @CreatedDate
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    public LocalDateTime dataCadastro;
+    public OffsetDateTime dataCadastro;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    public LocalDateTime dataApreensao;
+    public OffsetDateTime dataApreensao;
 
 }
