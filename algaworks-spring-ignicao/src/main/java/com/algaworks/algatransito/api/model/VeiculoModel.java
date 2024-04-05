@@ -11,7 +11,7 @@ import java.time.OffsetDateTime;
 public class VeiculoModel {
 
     private Long id;
-    private String nomeProprietario;
+    private ProprietarioResumoModel proprietario;
     private String numeroPlaca;
     private String modelo;
     private String marca;
