@@ -2,6 +2,7 @@ package com.algaworks.algatransito.api.controller;
 
 import com.algaworks.algatransito.api.assembler.VeiculoAssembler;
 import com.algaworks.algatransito.api.model.VeiculoModel;
+import com.algaworks.algatransito.api.model.input.VeiculoInputModel;
 import com.algaworks.algatransito.domain.model.Veiculo;
 import com.algaworks.algatransito.domain.repository.VeiculoRepository;
 import com.algaworks.algatransito.domain.service.RegistroVeiculoService;
@@ -40,9 +41,12 @@ public class VeiculoController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public VeiculoModel adicionar(@Valid @RequestBody Veiculo veiculo) {
-            
-        return veiculoAssembler.toModel(registroVeiculoService.salvar(veiculo));
+    public VeiculoModel adicionar(@Valid @RequestBody VeiculoInputModel veiculoInputModel) {
+
+        Veiculo veiculo = veiculoAssembler.toEntity(veiculoInputModel);
+        Veiculo novoVeiculo = registroVeiculoService.salvar(veiculo);
+
+        return veiculoAssembler.toModel(novoVeiculo);
     }
 
     @PutMapping("/{veiculoId}")
