@@ -13,6 +13,8 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -45,5 +47,8 @@ public class Veiculo {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     public OffsetDateTime dataApreensao;
+
+    @OneToMany(mappedBy = "veiculo")
+    public List<Autuacao> autuacoes = new ArrayList<>();
 
 }
