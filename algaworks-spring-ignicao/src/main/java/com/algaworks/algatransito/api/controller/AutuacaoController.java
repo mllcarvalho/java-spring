@@ -67,7 +67,7 @@ public class AutuacaoController {
 //        return ResponseEntity.ok(veiculo);
 //    }
 
-    @DeleteMapping("/{autuacaoId}")
+    @DeleteMapping("/autuacoes/{autuacaoId}")
     public ResponseEntity<Autuacao> remover(@PathVariable Long autuacaoId) {
 
         if (!autuacaoRepository.existsById(autuacaoId)) {
