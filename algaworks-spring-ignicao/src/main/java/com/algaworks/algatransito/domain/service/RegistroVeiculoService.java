@@ -44,4 +44,9 @@ public class RegistroVeiculoService {
     public void excluir(Long veiculoId) {
         veiculoRepository.deleteById(veiculoId);
     }
+
+    public Veiculo buscar(Long veiculoId) {
+        return veiculoRepository.findById(veiculoId)
+            .orElseThrow(() -> new NegocioException("Veículo não encontrado"));
+    }
 }

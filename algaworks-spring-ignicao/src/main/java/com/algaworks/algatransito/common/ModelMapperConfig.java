@@ -1,6 +1,8 @@
 package com.algaworks.algatransito.common;
 
+import com.algaworks.algatransito.api.model.AutuacaoModel;
 import com.algaworks.algatransito.api.model.VeiculoModel;
+import com.algaworks.algatransito.domain.model.Autuacao;
 import com.algaworks.algatransito.domain.model.Veiculo;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +18,8 @@ public class ModelMapperConfig {
 
         modelMapper.createTypeMap(Veiculo.class, VeiculoModel.class)
                 .addMappings(mapper -> mapper.map(Veiculo::getPlaca, VeiculoModel::setNumeroPlaca));
+
+        modelMapper.createTypeMap(Autuacao.class, AutuacaoModel.class);
 
         return modelMapper;
     }

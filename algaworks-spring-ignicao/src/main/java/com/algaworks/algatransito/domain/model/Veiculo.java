@@ -38,17 +38,21 @@ public class Veiculo {
     public String modelo;
 
     @Enumerated(EnumType.STRING)
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     public StatusVeiculo status;
 
     @CreatedDate
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     public OffsetDateTime dataCadastro;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     public OffsetDateTime dataApreensao;
 
-    @OneToMany(mappedBy = "veiculo")
+    @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL)
     public List<Autuacao> autuacoes = new ArrayList<>();
 
+    public Autuacao adicionarAutuacao(Autuacao autuacao) {
+        this.autuacoes.add(autuacao);
+        autuacao.setVeiculo(this);
+        autuacao.setDataOcorrencia(OffsetDateTime.now());
+
+        return autuacao;
+    }
 }

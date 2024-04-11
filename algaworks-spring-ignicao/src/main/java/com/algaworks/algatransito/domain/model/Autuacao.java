@@ -28,6 +28,5 @@ public class Autuacao {
 
     public BigDecimal valorMulta;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     public OffsetDateTime dataOcorrencia;
 }
