@@ -2,6 +2,7 @@ package com.algaworks.algatransito.api.model.input;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,5 +16,6 @@ public class AutuacaoInputModel {
     private String descricao;
 
     @NotNull
+    @Positive
     private BigDecimal valorMulta;
 }
