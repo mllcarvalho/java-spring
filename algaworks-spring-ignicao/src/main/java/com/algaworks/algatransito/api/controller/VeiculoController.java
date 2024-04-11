@@ -1,6 +1,8 @@
 package com.algaworks.algatransito.api.controller;
 
 import com.algaworks.algatransito.api.assembler.VeiculoAssembler;
+import com.algaworks.algatransito.api.assembler.VeiculoAutuacaoAssembler;
+import com.algaworks.algatransito.api.model.VeiculoAutuacaoModel;
 import com.algaworks.algatransito.api.model.VeiculoModel;
 import com.algaworks.algatransito.api.model.input.VeiculoInputModel;
 import com.algaworks.algatransito.domain.model.Veiculo;
@@ -25,6 +27,7 @@ public class VeiculoController {
     private final ApreensaoVeiculoService apreensaoVeiculoService;
     private final VeiculoRepository veiculoRepository;
     private final VeiculoAssembler veiculoAssembler;
+    private final VeiculoAutuacaoAssembler veiculoAutuacaoAssembler;
 
     @GetMapping
     public List<VeiculoModel> listar() {
@@ -33,7 +36,7 @@ public class VeiculoController {
     }
 
     @GetMapping("/{veiculoId}")
-    public ResponseEntity<VeiculoModel> Buscar(@PathVariable Long veiculoId) {
+    public ResponseEntity<VeiculoModel> buscar(@PathVariable Long veiculoId) {
 
         return veiculoRepository.findById(veiculoId)
                 .map(veiculoAssembler::toModel)
@@ -87,5 +90,14 @@ public class VeiculoController {
     public void liberar(@PathVariable Long veiculoId) {
 
         apreensaoVeiculoService.liberar(veiculoId);
+    }
+
+    @GetMapping("/{veiculoId}/autuacoes")
+    public ResponseEntity<VeiculoAutuacaoModel> buscarVeiculoAutuacao(@PathVariable Long veiculoId) {
+
+        return veiculoRepository.findById(veiculoId)
+                .map(veiculoAutuacaoAssembler::toModel)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }
