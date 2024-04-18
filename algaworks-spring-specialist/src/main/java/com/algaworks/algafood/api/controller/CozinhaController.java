@@ -10,18 +10,18 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/cozinha")
-public class Teste {
+public class CozinhaController {
 
     private final CozinhaRepository cozinhaRepository;
 
     @GetMapping
     public List<Cozinha> listar() {
-        return cozinhaRepository.buscar();
+        return cozinhaRepository.listar();
     }
 
     @GetMapping("/{cozinhaId}")
     public Cozinha buscar(@PathVariable Long cozinhaId) {
-        return cozinhaRepository.buscarPorId(cozinhaId);
+        return cozinhaRepository.buscar(cozinhaId);
     }
 
     @PostMapping
@@ -31,14 +31,14 @@ public class Teste {
 
     @PutMapping("/{cozinhaId}")
     public Cozinha atualizar(@PathVariable Long cozinhaId, @RequestBody Cozinha cozinha) {
-        Cozinha cozinhaAtual = cozinhaRepository.buscarPorId(cozinhaId);
+        Cozinha cozinhaAtual = cozinhaRepository.buscar(cozinhaId);
         cozinhaAtual.setNome(cozinha.getNome());
         return cozinhaRepository.salvar(cozinhaAtual);
     }
 
     @DeleteMapping("/{cozinhaId}")
     public void remover(@PathVariable Long cozinhaId) {
-        Cozinha cozinha = cozinhaRepository.buscarPorId(cozinhaId);
+        Cozinha cozinha = cozinhaRepository.buscar(cozinhaId);
         cozinhaRepository.remover(cozinha);
     }
 }
