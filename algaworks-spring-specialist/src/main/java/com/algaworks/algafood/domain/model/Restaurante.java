@@ -22,6 +22,7 @@ public class Restaurante {
 
     private BigDecimal taxaFrete;
 
-    @OneToMany
+    @ManyToOne
     private Cozinha cozinha;
+
 }
