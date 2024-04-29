@@ -5,11 +5,12 @@ import com.algaworks.algafood.domain.repository.PermissaoRepository;
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Component
+@Repository
 @AllArgsConstructor
 public class PermissaoRepositoryImpl implements PermissaoRepository {
 
