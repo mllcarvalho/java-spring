@@ -3,9 +3,11 @@ package com.algaworks.algafood.api.controller;
 import com.algaworks.algafood.domain.model.FormaPagamento;
 import com.algaworks.algafood.domain.repository.FormaPagamentoRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -16,12 +18,14 @@ public class FormaPagamentoController {
 
     @GetMapping
     public List<FormaPagamento> listar() {
-        return formaPagamentoRepository.listar();
+        return formaPagamentoRepository.findAll();
     }
 
     @GetMapping("/{formaPagamentoId}")
-    public FormaPagamento buscar(@PathVariable Long formaPagamentoId) {
-        return formaPagamentoRepository.buscar(formaPagamentoId);
+    public ResponseEntity<FormaPagamento> buscar(@PathVariable Long formaPagamentoId) {
+        Optional<FormaPagamento> formaPagamento = formaPagamentoRepository.findById(formaPagamentoId);
+
+        return formaPagamento.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
