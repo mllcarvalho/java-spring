@@ -20,3 +20,8 @@ insert into forma_pagamento (descricao) values ('Cartão de débito');
 insert into permissao (nome, descricao) values ('CONSULTAR_COZINHAS', 'Permite consultar cozinhas');
 insert into permissao (nome, descricao) values ('EDITAR_COZINHAS', 'Permite editar cozinhas');
 insert into permissao (nome, descricao) values ('CADASTRAR_COZINHAS', 'Permite cadastrar cozinhas');
+
+insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (1, 1);
+insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (1, 2);
+insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (2, 2);
+insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (3, 3);
