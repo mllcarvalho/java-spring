@@ -41,7 +41,7 @@ public class EstadoController {
     }
 
     @PutMapping("/{estadoId}")
-    public ResponseEntity<Estado> atualizar(@PathVariable Long estadoId, @RequestBody Estado estado) {
+    public ResponseEntity<?> atualizar(@PathVariable Long estadoId, @RequestBody Estado estado) {
         Optional<Estado> estadoAtual = estadoRepository.findById(estadoId);
 
         if (estadoAtual.isEmpty()) {
@@ -54,7 +54,7 @@ public class EstadoController {
     }
 
     @DeleteMapping("/{estadoId}")
-    public ResponseEntity<Estado> remover(@PathVariable Long estadoId) {
+    public ResponseEntity<?> remover(@PathVariable Long estadoId) {
         try {
             Optional<Estado> estadoAtual = estadoRepository.findById(estadoId);
 
@@ -64,10 +64,8 @@ public class EstadoController {
 
             cadastroEstado.excluir(estadoId);
             return ResponseEntity.noContent().build();
-        } catch (EntidadeNaoEncontradaException e) {
-            return ResponseEntity.notFound().build();
         } catch (EntidadeEmUsoException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
     }
 }

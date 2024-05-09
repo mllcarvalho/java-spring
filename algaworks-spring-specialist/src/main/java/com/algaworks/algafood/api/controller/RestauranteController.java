@@ -69,18 +69,15 @@ public class RestauranteController {
 
     @DeleteMapping("/{restauranteId}")
     public ResponseEntity<Restaurante> remover(@PathVariable Long restauranteId) {
-        try {
-            Optional<Restaurante> restauranteAtual = restauranteRepository.findById(restauranteId);
 
-            if (restauranteAtual.isEmpty()) {
-                return ResponseEntity.notFound().build();
-            }
+        Optional<Restaurante> restauranteAtual = restauranteRepository.findById(restauranteId);
 
-            cadastroRestaurante.remover(restauranteId);
-            return ResponseEntity.noContent().build();
-        } catch (EntidadeNaoEncontradaException e) {
+        if (restauranteAtual.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+
+        cadastroRestaurante.remover(restauranteId);
+        return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{restauranteId}")

@@ -57,7 +57,7 @@ public class CozinhaController {
     }
 
     @DeleteMapping("/{cozinhaId}")
-    public ResponseEntity<Cozinha> remover(@PathVariable Long cozinhaId) {
+    public ResponseEntity<?> remover(@PathVariable Long cozinhaId) {
 
         try {
             Optional<Cozinha> cozinhaAtual = cozinhaRepository.findById(cozinhaId);
@@ -69,9 +69,7 @@ public class CozinhaController {
             cadastroCozinha.remover(cozinhaId);
             return ResponseEntity.noContent().build();
         } catch (EntidadeEmUsoException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        } catch (EntidadeNaoEncontradaException e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
     }
 }

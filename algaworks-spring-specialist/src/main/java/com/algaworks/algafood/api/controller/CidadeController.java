@@ -67,17 +67,13 @@ public class CidadeController {
     @DeleteMapping("/{cidadeId}")
     public ResponseEntity<Cidade> remover(@PathVariable Long cidadeId) {
 
-        try {
-            Optional<Cidade> cidadeAtual = cidadeRepository.findById(cidadeId);
+        Optional<Cidade> cidadeAtual = cidadeRepository.findById(cidadeId);
 
-            if (cidadeAtual.isEmpty()) {
-                return ResponseEntity.notFound().build();
-            }
-
-            cadastroCidade.excluir(cidadeId);
-            return ResponseEntity.noContent().build();
-        } catch (EntidadeNaoEncontradaException e) {
-           return ResponseEntity.notFound().build();
+        if (cidadeAtual.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
+
+        cadastroCidade.excluir(cidadeId);
+        return ResponseEntity.noContent().build();
     }
 }
