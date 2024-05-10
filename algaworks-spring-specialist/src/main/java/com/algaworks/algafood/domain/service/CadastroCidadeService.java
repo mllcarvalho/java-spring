@@ -27,12 +27,6 @@ public class CadastroCidadeService {
     }
 
     public void excluir(Long cidadeId) {
-        try {
-            cidadeRepository.deleteById(cidadeId);
-        } catch (EmptyResultDataAccessException e) {
-            throw new EntidadeNaoEncontradaException(
-                    String.format("Não existe um cadastro de cidade com código %d", cidadeId));
-        }
+        cidadeRepository.deleteById(cidadeId);
     }
-
 }

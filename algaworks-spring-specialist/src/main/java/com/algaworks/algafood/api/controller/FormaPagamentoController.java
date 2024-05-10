@@ -1,5 +1,6 @@
 package com.algaworks.algafood.api.controller;
 
+import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.model.FormaPagamento;
 import com.algaworks.algafood.domain.repository.FormaPagamentoRepository;
@@ -54,15 +55,19 @@ public class FormaPagamentoController {
     }
 
     @DeleteMapping("/{formaPagamentoId}")
-    public ResponseEntity<FormaPagamento> remover(@PathVariable Long formaPagamentoId) {
-        Optional<FormaPagamento> formaPagamentoAtual = formaPagamentoRepository.findById(formaPagamentoId);
+    public ResponseEntity<?> remover(@PathVariable Long formaPagamentoId) {
 
-        if (formaPagamentoAtual.isEmpty()) {
-            return ResponseEntity.notFound().build();
+        try {
+            Optional<FormaPagamento> formaPagamentoAtual = formaPagamentoRepository.findById(formaPagamentoId);
+
+            if (formaPagamentoAtual.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            formaPagamentoService.excluir(formaPagamentoId);
+            return ResponseEntity.noContent().build();
+        } catch (EntidadeEmUsoException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
-
-        formaPagamentoService.excluir(formaPagamentoId);
-        return ResponseEntity.noContent().build();
-
     }
 }
