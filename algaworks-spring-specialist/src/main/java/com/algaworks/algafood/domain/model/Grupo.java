@@ -4,10 +4,14 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Permissao {
+public class Grupo {
 
     @EqualsAndHashCode.Include
     @Id
@@ -17,7 +21,9 @@ public class Permissao {
     @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false)
-    private String descricao;
+    @ManyToMany
+    @JoinTable(name = "grupo_permissao", joinColumns = @JoinColumn(name = "grupo_id"),
+            inverseJoinColumns = @JoinColumn(name = "permissao_id"))
+    private List<Permissao> permissoes = new ArrayList<>();
 
 }

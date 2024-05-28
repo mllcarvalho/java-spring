@@ -1,5 +1,6 @@
 package com.algaworks.algafood.api.controller;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.algaworks.algafood.domain.exception.EntidadeDuplicadaException;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.model.Restaurante;
